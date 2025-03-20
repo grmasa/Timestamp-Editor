@@ -15,6 +15,11 @@
 - If this fails (e.g., due to Android storage restrictions), the app will prompt to use **root access** (if enabled in settings).
 - Root is recommended for full compatibility with restricted files or system directories.
 
+## 📸 App Screenshots
+
+![Alt text](https://raw.githubusercontent.com/grmasa/Timestamp-Editor/main/fastlane/metadata/android/en-US/images/phoneScreenshots/1.png?raw=true "Screenshot 1")
+![Alt text](https://raw.githubusercontent.com/grmasa/Timestamp-Editor/main/fastlane/metadata/android/en-US/images/phoneScreenshots/2.png?raw=true "Screenshot 2")
+
 ## 🚀 Usage
 
 1. Select the files you want to modify.
