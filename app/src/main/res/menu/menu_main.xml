@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Settings Option -->
+    <item
+        android:id="@+id/action_settings"
+        android:icon="@android:drawable/ic_menu_manage"
+        android:title="Settings"
+        app:showAsAction="ifRoom" />
+
+    <!-- Exit Option -->
+    <item
+        android:id="@+id/action_exit"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="Exit"
+        app:showAsAction="ifRoom" />
+</menu>

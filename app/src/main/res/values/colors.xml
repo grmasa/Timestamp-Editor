@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary color used for buttons and accents -->
+    <color name="colorPrimary">#6200EE</color> <!-- Purple -->
+
+    <!-- Secondary color for additional accents -->
+    <color name="colorSecondary">#03DAC5</color> <!-- Teal -->
+
+    <!-- Text color for general text -->
+    <color name="textColor">#000000</color> <!-- Black -->
+
+    <!-- Background color for the layout -->
+    <color name="backgroundColor">#F5F5F5</color> <!-- Light Gray -->
+
+    <!-- Accent color for borders, focus elements, etc. -->
+    <color name="accentColor">#FF4081</color> <!-- Pink -->
+</resources>

@@ -1,0 +1,1 @@
+<i>Timestamp Editor</i> is an Android app that allows users to batch edit file timestamps (e.g., "Last Modified" date) directly on their device.

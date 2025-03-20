@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Timestamp Editor</string>
+
+    <!-- File types -->
+    <string-array name="file_types">
+        <item>All Files</item>
+        <item>Text Files</item>
+        <item>Images</item>
+        <item>PDF</item>
+    </string-array>
+
+    <string name="selected_files">Selected %1$d files.</string>
+    <string name="timestamps_updated">Timestamps updated for all files!</string>
+    <string name="no_files_selected">No files selected!</string>
+    <string name="touch_date_format">yyyyMMddHHmm</string>
+    <string name="enable_root_access">Enable Root Access</string>
+</resources>
