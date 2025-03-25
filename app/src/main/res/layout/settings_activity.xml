@@ -27,6 +27,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/toolbar" />
 
+    <CheckBox
+        android:id="@+id/keepHistoryCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/keep_file_history"
+        android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/rootAccessCheckbox"/>
+
+
     <TextView
         android:id="@+id/fileTypeFilterLabel"
         android:layout_width="wrap_content"
@@ -36,7 +47,7 @@
         android:layout_marginTop="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/rootAccessCheckbox" />
+        app:layout_constraintTop_toBottomOf="@id/keepHistoryCheckbox" />
 
     <Spinner
         android:id="@+id/fileTypeSpinner"

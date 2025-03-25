@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Settings variables
     private String timestampFormat, fileTypeFilter;
-    private boolean rootAccessEnabled;
+    private boolean rootAccessEnabled, keepHistory;
     private ActivityResultLauncher<Intent> filePickerLauncher;
 
 
@@ -85,12 +85,17 @@ public class MainActivity extends AppCompatActivity {
                         } else if (data.getData() != null) {
                             selectedFileUris.add(data.getData());
                         }
+                        saveFileHistory();
                         filePathText.setText(getString(R.string.selected_files, selectedFileUris.size()));
                     }
                 }
         );
         // Load settings
         loadSettings();
+        // Load history if enabled
+        loadFileHistory();
+        selectedDate.setTimeInMillis(System.currentTimeMillis());
+        updateDateText();
     }
 
     private void selectFiles() {
@@ -131,6 +136,36 @@ public class MainActivity extends AppCompatActivity {
         }, selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH), selectedDate.get(Calendar.DAY_OF_MONTH));
 
         datePicker.show();
+    }
+
+    private void loadFileHistory() {
+        if (!keepHistory) return;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("TimestampEditorPrefs", MODE_PRIVATE);
+        String fileUrisString = sharedPreferences.getString("file_history", null);
+        if (fileUrisString != null) {
+            selectedFileUris.clear();
+            String[] uriStrings = fileUrisString.split(";");
+            for (String uriString : uriStrings) {
+                selectedFileUris.add(Uri.parse(uriString));
+            }
+            filePathText.setText(getString(R.string.loaded_from_history, selectedFileUris.size()));
+        }
+    }
+
+    private void saveFileHistory() {
+        if (!keepHistory) return;
+
+        SharedPreferences sharedPreferences = getSharedPreferences("TimestampEditorPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+
+        StringBuilder fileUrisString = new StringBuilder();
+        for (Uri uri : selectedFileUris) {
+            fileUrisString.append(uri.toString()).append(";");
+        }
+
+        editor.putString("file_history", fileUrisString.toString());
+        editor.apply();
     }
 
     private void updateDateText() {
@@ -175,7 +210,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                     System.out.println("Updated date of file: " + path + " - " + updatedDate);
-
                 }
             }
         }
@@ -195,7 +229,6 @@ public class MainActivity extends AppCompatActivity {
             su.waitFor();
         } catch (IOException | InterruptedException e) {
             System.out.println("Error while applying timestamp with root" + e);
-
         }
     }
 
@@ -249,6 +282,7 @@ public class MainActivity extends AppCompatActivity {
         // Load settings from SharedPreferences
         SharedPreferences sharedPreferences = getSharedPreferences("TimestampEditorPrefs", MODE_PRIVATE);
         timestampFormat = sharedPreferences.getString("timestamp_format", "yyyy-MM-dd HH:mm:ss");
+        keepHistory = sharedPreferences.getBoolean("keep_history", false);
         rootAccessEnabled = sharedPreferences.getBoolean("root_access", false);
         fileTypeFilter = sharedPreferences.getString("file_type_filter", "All Files");
     }

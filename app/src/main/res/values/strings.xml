@@ -14,4 +14,6 @@
     <string name="no_files_selected">No files selected!</string>
     <string name="touch_date_format">yyyyMMddHHmm</string>
     <string name="enable_root_access">Enable Root Access</string>
+    <string name="keep_file_history">Keep history of last used files</string>
+    <string name="loaded_from_history">Loaded from history: %1$d files</string>
 </resources>

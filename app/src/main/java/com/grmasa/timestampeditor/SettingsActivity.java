@@ -19,7 +19,7 @@ import java.util.Objects;
 public class SettingsActivity extends AppCompatActivity {
 
     private boolean isRootEnabled;
-    private CheckBox rootAccessCheckbox;
+    private CheckBox rootAccessCheckbox, keepHistoryCheckbox;
     private Spinner fileTypeSpinner;
 
     private SharedPreferences sharedPreferences;
@@ -46,6 +46,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // views
         rootAccessCheckbox = findViewById(R.id.rootAccessCheckbox);
+        keepHistoryCheckbox = findViewById(R.id.keepHistoryCheckbox);
         fileTypeSpinner = findViewById(R.id.fileTypeSpinner);
         Button saveSettingsButton = findViewById(R.id.saveSettingsButton);
 
@@ -90,6 +91,10 @@ public class SettingsActivity extends AppCompatActivity {
 
     // Load saved settings from SharedPreferences
     private void loadSettings() {
+        // Load the history toggle state
+        boolean keepHistory = sharedPreferences.getBoolean("keep_history", false);
+        keepHistoryCheckbox.setChecked(keepHistory);
+
         // Load root access toggle state
         isRootEnabled = sharedPreferences.getBoolean("root_access", false);
         rootAccessCheckbox.setChecked(isRootEnabled);
@@ -111,6 +116,9 @@ public class SettingsActivity extends AppCompatActivity {
         // Save root access toggle
         boolean isRootEnabled = rootAccessCheckbox.isChecked();
         editor.putBoolean("root_access", isRootEnabled);
+
+        // Save history toggle
+        editor.putBoolean("keep_history", keepHistoryCheckbox.isChecked());
 
         // Save the selected file type filter
         String selectedFileTypeFilter = (String) fileTypeSpinner.getSelectedItem();
