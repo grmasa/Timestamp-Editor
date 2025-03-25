@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
 
         selectFilesButton.setOnClickListener(v -> selectFiles());
         pickDateButton.setOnClickListener(v -> pickDateTime());
-        applyButton.setOnClickListener(v -> applyTimestampBatch());
+        applyButton.setOnClickListener(v -> {
+            ExecutorService executor = Executors.newSingleThreadExecutor();
+            executor.execute(this::applyTimestampBatch);
+        });
 
         filePickerLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
