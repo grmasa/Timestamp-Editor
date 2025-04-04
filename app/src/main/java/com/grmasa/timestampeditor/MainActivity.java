@@ -152,9 +152,16 @@ public class MainActivity extends AppCompatActivity {
             selectedFileUris.clear();
             String[] uriStrings = fileUrisString.split(";");
             for (String uriString : uriStrings) {
-                selectedFileUris.add(Uri.parse(uriString));
+                Uri temp = Uri.parse(uriString);
+                String path = FileUtil.getFullPathFromTreeUri(temp, this);
+                if (path != null) {
+                    File file = new File(path);
+                    if (file.exists()) {
+                        selectedFileUris.add(Uri.parse(uriString));
+                    }
+                    filePathText.setText(getString(R.string.loaded_from_history, selectedFileUris.size()));
+                }
             }
-            filePathText.setText(getString(R.string.loaded_from_history, selectedFileUris.size()));
         }
     }
 
@@ -197,10 +204,6 @@ public class MainActivity extends AppCompatActivity {
                 if (file.exists()) {
                     long originalTimestamp = file.lastModified();
                     String originalDate = formatDate(originalTimestamp);
-                    // Get and format the updated last modified date
-                    long updatedTimestamp = file.lastModified();
-                    String updatedDate = formatDate(updatedTimestamp);
-
                     // Log the original date
                     System.out.println("Original date of file: " + path + " - " + originalDate);
 
@@ -208,15 +211,17 @@ public class MainActivity extends AppCompatActivity {
                     if (!success) {
                         if (rootAccessEnabled) {
                             applyWithRoot(path);
-                        } else {
-                            Toast.makeText(this,
-                                    "Timestamp update may not work without root.",
-                                    Toast.LENGTH_LONG).show();
                         }
                     }
+                    // Get and format the updated last modified date
+                    long updatedTimestamp = file.lastModified();
+                    String updatedDate = formatDate(updatedTimestamp);
                     System.out.println("Updated date of file: " + path + " - " + updatedDate);
                 }
             }
+        }
+        if (!rootAccessEnabled) {
+            this.runOnUiThread(() -> Toast.makeText(this, "Timestamp update may not work without root.", Toast.LENGTH_SHORT).show());
         }
         filePathText.setText(getString(R.string.timestamps_updated));
     }
